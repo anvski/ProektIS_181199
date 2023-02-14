@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="GemBox.Document" Version="35.0.1020" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Eshop.Domain\Eshop.Domain.csproj" />
+    <ProjectReference Include="..\Eshop.Repository\Eshop.Repository.csproj" />
+  </ItemGroup>
+
+</Project>

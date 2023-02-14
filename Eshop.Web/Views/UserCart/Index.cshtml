@@ -1,0 +1,58 @@
+﻿@model Eshop.Domain.ViewModels.UserCartLoader
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Tickets </h1>
+<h4 style="color:dimgray">in Shopping Cart</h4>    
+
+<br />
+<br />
+
+<div class="row">
+    <div class="col m-3">
+        <table class="table table-hover table-dark">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Price Per</th>
+                    <th scope="col">Quantity</th>
+                    <th scope="col">Total Price</th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    int i = 0;
+                    foreach (var item in Model.ticketsInShoppingCart)
+                    {
+                        double totalPrice = item.Ticket.Price * item.Quantity;
+                        <tr>
+                            <th scope="row">@(i+=1)</th>
+                            <td>@item.Ticket.ProductName</td>
+                            <td>@item.Ticket.Price</td>
+                            <td>@item.Quantity</td>
+                            <td>@totalPrice</td>
+                            <td><a asp-controller="UserCart" asp-action="Delete" asp-route-id="@item.TicketId" class="btn btn-outline-danger">Delete</a></td>
+                            <td></td>
+                        </tr>
+                    }
+
+                    <tr>
+                        <th scope="row">@(i+=1)</th>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>@Model.totalPrice</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <a asp-action="PlaceOrder" asp-controller="UserCart" class="btn btn-outline-success">Place Order</a>
+    </div>
+</div>

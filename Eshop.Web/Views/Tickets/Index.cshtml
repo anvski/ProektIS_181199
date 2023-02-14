@@ -1,0 +1,47 @@
+﻿@model List<Eshop.Domain.DomainModels.Ticket>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Tickets</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<div class="container">
+    @for (int i = 0; i < Model.Count; i++)
+    {
+
+        var item = Model[i];
+        if (i % 3 == 0)
+        {
+            @:<div class="row m-2">
+            }
+            <div class="col-md-4">
+                <div class="card" style="width: 18rem; height: 30rem">
+                    <img class="card-img-top" src="@item.ProductImage" alt="Card image cap" style="height: 50%">
+                    <div class="card-body">
+                        <h5 class="card-title">@item.ProductName</h5>
+                        <p class="card-text">@item.ProductDescription</p>
+                    </div>
+                    <div class="card-footer">
+                        <a asp-controller="Tickets" asp-action="AddToCart" asp-route-id="@item.ID" class="btn btn-primary">Add To Cart</a>
+                        <a asp-controller="Tickets" asp-action="Edit" asp-route-id="@item.ID" class="btn btn-secondary">Edit</a>
+                        <a asp-controller="Tickets" asp-action="Delete" asp-route-id="@item.ID" class="btn btn-danger">Delete</a>
+                    </div>
+                </div>
+                
+            </div>
+            if (i % 3 == 2)
+            {
+            @:</div>
+        }
+
+
+
+
+
+    }
+</div>

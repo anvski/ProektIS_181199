@@ -1,0 +1,75 @@
+﻿@model List<Eshop.Domain.ViewModels.UsersLoad>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col m-3">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">UserName</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Password-Hash</th>
+                    <th scope="col">Role</th>
+                    <th scope="col">Make admin</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    int i = 0;
+                    foreach (var item in Model)
+                    {
+                                <tr>
+                                    <th scope="row">@(i+=1)</th>
+                                    <td>@item.user.UserName</td>
+                                    <td>@item.user.Email</td>
+                                    <td>@item.user.PasswordHash</td>
+                                    <td>@item.role</td>
+                                    @if (item.role.Equals("Default"))
+                                    {
+                                        <td scope="col"><a asp-controller="Admin" asp-action="MakeAdmin" asp-route-id="@item.user.Id" class="btn btn-success">Make Admin</a></td>
+                                        
+                                    }
+                                    else
+                                    {
+                                        <th scope="col"></th>
+                                    }
+
+                                </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col m-3">
+        <form asp-controller="Admin" asp-action="ImportUsers" method="post" enctype="multipart/form-data">
+            <input type="file" name="file" />
+            <button type="submit" class="btn btn-outline-success">Import from Excel</button>
+        </form>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col m-3">
+        @using (Html.BeginForm("ExportAllTickets", "Admin", new { enctype = "multipart/form-data" }))
+        {
+            @Html.DropDownList("Genres", new List<SelectListItem>
+            {
+               new SelectListItem{ Text="Horror", Value = "Horror" },
+               new SelectListItem{ Text="Action", Value = "Action" },
+               new SelectListItem{ Text="Comedy", Value = "Comedy" },
+               new SelectListItem{ Text="Romance", Value = "Romance" },
+               new SelectListItem{ Text="Drama", Value = "Drama" }
+            }, "Select Genre")
+
+            <input type="submit" value="Submit" />
+        }
+    </div>
+</div>
